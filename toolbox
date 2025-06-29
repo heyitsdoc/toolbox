@@ -1,0 +1,75 @@
+#!/bin/bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+source "$SCRIPT_DIR/shellfiles/oneliners.sh"
+source "$SCRIPT_DIR/shellfiles/kill_proc.sh"
+
+
+export PATH="$SCRIPT_DIR/shellfiles:$PATH"
+
+
+if [ -n "$1" ]; then
+  select=$1
+  shift
+  SRC_ARGS=$@
+else
+  hearder="Choose what program to run"
+  select=$(cat $SCRIPT_DIR/proglist.txt | fzf --header="$header" --prompt="do it baby!")
+  [[ -z "$select" ]] && echo "❌ No program is selected." && exit 1
+  read -p "enter the script Args : " SRC_ARGS 
+  select=$(echo "$select" | awk '{print $1}')
+fi
+
+case $select in --help)
+  cat $SCRIPT_DIR/help.txt
+  ;;
+esac
+
+# while IFS= read -r line; do
+#   if grep -qw "${select:2}" $line; then
+#     echo $line
+#   fi
+# done < "/home/doc/doc_mastery/bin/proglist.txt"
+
+case $select in --gi | --all)
+  echo -e "here your ip take it:\n$(get_ip)"
+  ;;
+esac
+
+case $select in --ut | --all)
+  echo -e "now ofcourse you wanna know your uptime here :\n$(get_uptime)"
+  ;;
+esac
+
+case $select in --ls | --all)
+  echo -e "Services that are active right now\n$(get_servics)"
+  ;;
+esac
+
+case $select in --du | --all)
+  echo -e "Disk Usage of all mounted disks :\n$(get_diskUsage)"
+  ;;
+esac
+
+case $select in --kp)
+  kill_proc
+  ;;
+esac
+
+case $select in --trim)
+  trim_ssd
+  ;;
+esac
+
+case $select in --ping)
+ is_up $SRC_ARGS  
+  ;;
+esac
+case $select in --net)
+ netdat.sh $SRC_ARGS  
+  ;;
+esac
+case $select in --pro)
+ procdat.sh $SRC_ARGS  
+  ;;
+esac

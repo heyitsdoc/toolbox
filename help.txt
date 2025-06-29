@@ -1,0 +1,12 @@
+this is the scripts to manages all my scripts you can run with fzf or pass arguments too
+these are current funtions the script has 
+--help : get help
+--all : run all script (except --kp)
+--gi : get your_ip 
+--ut : get Uptime 
+--ls : get current active services
+--du : get disk usage of the disks
+--kp : select and kill processes that are sorted by resourses
+--ping : pings domains
+--net : gives some basic network information
+--pro : gets top 10 most resourse intensive tasks by CPU or MEM

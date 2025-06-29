@@ -1,0 +1,31 @@
+#!bin/bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+shellfiles="$SCRIPT_DIR/shellfiles"
+
+if [ -z "$1" ]; then
+  echo "No Script File Provided."
+  exit 1
+fi
+
+SCRIPT_PATH="$1"
+SCRIPT_NAME=$(basename "$SCRIPT_PATH")
+
+while true; do 
+  read -p "enter the tag for the $SCRIPT_NAME. eg: --${SCRIPT_NAME:0:3} : " SCRIPT_TAG
+  echo "$SCRIPT_TAG"
+  if grep -qw "\\$SCRIPT_TAG" $SCRIPT_DIR/proglist.txt; then
+    echo "it exists"
+    continue
+  else
+    read -p "enter the discription for $SCRIPT_NAME : " SCRIPT_DISC 
+    echo "$SCRIPT_TAG $SCRIPT_NAME => $SCRIPT_DISC" >> $SCRIPT_DIR/proglist.txt
+    echo "$SCRIPT_TAG : $SCRIPT_DISC" >> $SCRIPT_DIR/help.txt
+    echo -e "case \$select in $SCRIPT_TAG)\n  $SCRIPT_NAME \$SRC_ARGS  \n  ;;\nesac" >> $SCRIPT_DIR/toolbox
+    break
+  fi
+done
+
+
+cp $1 $SCRIPT_DIR/shellfiles
+chmod +x "$shellfiles/$SCRIPT_NAME"
