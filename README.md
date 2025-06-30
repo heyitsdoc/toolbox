@@ -24,6 +24,7 @@ A modular shell script to manage and run your personal or project-specific scrip
 
 ```bash
 ./toolbox [command] [options] 
+./toolbox //too run it with fzf
 
 ```
 
@@ -43,8 +44,10 @@ A modular shell script to manage and run your personal or project-specific scrip
 ```
 toolbox
 add_tool
-proglist.txt
-help.txt
+core/
+  ├── logs/
+  ├── proglist.txt
+  └── help.txt
 commands/
   ├── procdat.sh
   ├── netdat.sh
@@ -68,7 +71,7 @@ Use the `add_tool` utility to simplify adding new scripts to the toolbox. It wil
     
 
 ```bash
-./add_tools [tool-path]
+./add_tool [tool-path]
 
 ```
 
@@ -79,10 +82,6 @@ Use the `add_tool` utility to simplify adding new scripts to the toolbox. It wil
 -   Bash 4+
     
 -   (Optional)
-    
-    -   `curl` for web calls
-        
-    -   `jq` for JSON parsing
         
     -   `fzf` for fuzzy finding
         
