@@ -1,4 +1,8 @@
 #!/bin/bash
+
+#kill_porcess
+
+
 kill_proc(){
 # Get the header separately
 header="PID   COMMAND        %CPU  %MEM

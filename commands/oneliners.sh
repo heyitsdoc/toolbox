@@ -1,4 +1,6 @@
 #!/bin/bash
+
+#oneliners
 get_ip() {
   curl -s ifconfig.me
 }

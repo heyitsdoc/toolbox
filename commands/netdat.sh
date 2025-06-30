@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#network ip bandwidth  
 Interface=$(ip route get 1.1.1.1 | awk '{print $5}')
 LOCAL_IP=$(hostname -i | awk '{print $1}')
 PUBLIC_IP=$(curl -s ifconfig.me)

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#processes_data
 if [ -n "$1" ]; then 
     if [[ "${1:2}" == "cpu" || "${1:2}" == "mem" ]]; then
        select="${1:2}"
