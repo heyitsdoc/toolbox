@@ -23,16 +23,16 @@ A modular shell script to manage and run your personal or project-specific scrip
 ## 🚀 Usage
 
 ```bash
-./toolbox.sh [command] [options]
+./toolbox [command] [options] 
 
 ```
 
 ### Examples:
 
 ```bash
-./toolbox.sh --pro --cpu
-./toolbox.sh --net --latency
-./toolbox.sh --kp
+./toolbox --pro --cpu
+./toolbox --net --latency
+./toolbox --kp
 
 ```
 
@@ -45,7 +45,7 @@ toolbox
 add_tool
 proglist.txt
 help.txt
-scripts/
+commands/
   ├── procdat.sh
   ├── netdat.sh
   └── kill_proc.sh
