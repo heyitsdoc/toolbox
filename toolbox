@@ -1,11 +1,11 @@
 #!/bin/bash
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source "$SCRIPT_DIR/shellfiles/oneliners.sh"
-source "$SCRIPT_DIR/shellfiles/kill_proc.sh"
+source "$SCRIPT_DIR/commands/oneliners.sh"
+source "$SCRIPT_DIR/commands/kill_proc.sh"
 
 
-export PATH="$SCRIPT_DIR/shellfiles:$PATH"
+export PATH="$SCRIPT_DIR/commands:$PATH"
 
 
 if [ -n "$1" ]; then
@@ -14,14 +14,14 @@ if [ -n "$1" ]; then
   SRC_ARGS=$@
 else
   hearder="Choose what program to run"
-  select=$(cat $SCRIPT_DIR/proglist.txt | fzf --header="$header" --prompt="do it baby!")
+  select=$(cat $SCRIPT_DIR/core/proglist.txt | fzf --header="$header" --prompt="do it baby!")
   [[ -z "$select" ]] && echo "❌ No program is selected." && exit 1
   read -p "enter the script Args : " SRC_ARGS 
   select=$(echo "$select" | awk '{print $1}')
 fi
 
 case $select in --help)
-  cat $SCRIPT_DIR/help.txt
+  cat $SCRIPT_DIR/core/help.txt
   ;;
 esac
 
@@ -29,7 +29,7 @@ esac
 #   if grep -qw "${select:2}" $line; then
 #     echo $line
 #   fi
-# done < "/home/doc/doc_mastery/bin/proglist.txt"
+# done < "/home/doc/doc_mastery/bin/core/proglist.txt"
 
 case $select in --gi | --all)
   echo -e "here your ip take it:\n$(get_ip)"

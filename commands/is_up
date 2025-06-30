@@ -1,0 +1,48 @@
+#!/bin/bash  
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+
+log_DIR="$(cd $SCRIPT_DIR && cd "../logs" && pwd)"
+# echo $log_DIR
+# echo $SCRIPT_DIR
+
+if [ -z $@ ]; then 
+  echo "you need to give it argumets like domain list or just a domain"
+  exit
+fi
+if [ "$1" = "--latency" ]; then 
+  late=$(ping -c 1 -W 2 1.1.1.1| tail -1 | awk '{print $4}')
+  # echo $(ping -c 1 -W 2 google.com | tail -1 | awk '{print $4}' )
+  IFS='/' read -r _ latency _ _ <<< "$late"
+  echo -e "the latency is : \t$latency"
+  exit
+fi
+
+echo "$1"
+while read -r line; do
+    echo "$line"
+    
+done < "$1"
+
+ping_domain() {
+  domain="$1"
+  echo "🔄 Pinging $domain..."
+  if ping -c 1 -W 2 "$domain"; then
+    result="✅ $domain is reachable"
+  else
+    result="❌ $domain is unreachable"
+  fi
+  echo -e "$result"
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $result" >> "$log_DIR/domain.log"
+}
+
+if [ -f "$1" ]; then 
+    while IFS= read -r domain; do
+        [ -n "$domain" ] && ping_domain "$domain"
+    done < "$1"
+elif [ -n "$1" ]; then
+    ping_domain "$1"
+else
+    echo "Usage: $0 domain.com  OR  $0 domains.txt"
+    exit 1
+fi
