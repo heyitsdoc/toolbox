@@ -7,3 +7,4 @@
 --ping is_up => pings domains
 --net netdat.sh => gives some basic network information
 --pro procdat.sh => gets top 10 most resourse intensive tasks by CPU or MEM
+--sys sysreport.sh => This script should generate a brief system summary report with: uptime,ram usage, disk useage etc.

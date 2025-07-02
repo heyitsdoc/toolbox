@@ -117,3 +117,31 @@ tmpfs           1.6G  332K  1.6G   1% /run/user/1000
   48311 code             8.6
    2520 firefox          5.7
 
+2025-07-02 21:28:23-############################################################
+
+
+2025-07-02 21:28:26-############################################################
+Latest system report
+System uptime :
+	 21:28:26 up  7:44,  1 user,  load average: 1.25, 1.41, 1.31
+Total RAM Useage:
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       5.4Gi       6.6Gi       850Mi       4.5Gi       9.9Gi
+Swap:          4.0Gi          0B       4.0Gi
+Total Disk Useage:
+Filesystem      Size  Used Avail Use% Mounted on
+dev             7.7G     0  7.7G   0% /dev
+run             7.7G  2.1M  7.7G   1% /run
+efivarfs        268K  224K   40K  85% /sys/firmware/efi/efivars
+/dev/nvme0n1p6   98G   90G  3.0G  97% /
+tmpfs           7.7G   54M  7.7G   1% /dev/shm
+tmpfs           1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs           7.7G  8.3M  7.7G   1% /tmp
+/dev/nvme0n1p5  799M  229M  570M  29% /boot
+tmpfs           1.6G  300K  1.6G   1% /run/user/1000
+3 Most CPU-hogging processes:
+    PID COMMAND         %CPU
+  94330 code            38.8
+  94371 code            19.3
+   2520 firefox          5.8
+
