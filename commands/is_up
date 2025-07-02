@@ -3,8 +3,6 @@
 #network ping
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-
 log_DIR="$(cd $SCRIPT_DIR && cd "../core/logs" && pwd)"
 # echo $log_DIR
 # echo $SCRIPT_DIR
