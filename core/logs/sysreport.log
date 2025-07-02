@@ -145,3 +145,53 @@ tmpfs           1.6G  300K  1.6G   1% /run/user/1000
   94371 code            19.3
    2520 firefox          5.8
 
+2025-07-02 22:06:40-############################################################
+Latest system report
+System uptime :
+	 22:06:40 up  8:22,  1 user,  load average: 1.00, 1.77, 1.84
+Total RAM Useage:
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       5.8Gi       6.2Gi       914Mi       4.6Gi       9.6Gi
+Swap:          4.0Gi          0B       4.0Gi
+Total Disk Useage:
+Filesystem      Size  Used Avail Use% Mounted on
+dev             7.7G     0  7.7G   0% /dev
+run             7.7G  2.1M  7.7G   1% /run
+efivarfs        268K  224K   40K  85% /sys/firmware/efi/efivars
+/dev/nvme0n1p6   98G   90G  3.0G  97% /
+tmpfs           7.7G   50M  7.7G   1% /dev/shm
+tmpfs           1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs           7.7G   12M  7.7G   1% /tmp
+/dev/nvme0n1p5  799M  229M  570M  29% /boot
+tmpfs           1.6G  340K  1.6G   1% /run/user/1000
+3 Most CPU-hogging processes:
+    PID COMMAND         %CPU
+   2520 firefox          7.5
+   2787 Isolated Web Co  4.9
+  94371 code             3.3
+
+2025-07-02 22:07:33-############################################################
+Latest system report
+System uptime :
+	 22:07:33 up  8:23,  1 user,  load average: 0.64, 1.53, 1.76
+Total RAM Useage:
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       5.8Gi       6.2Gi       931Mi       4.6Gi       9.5Gi
+Swap:          4.0Gi          0B       4.0Gi
+Total Disk Useage:
+Filesystem      Size  Used Avail Use% Mounted on
+dev             7.7G     0  7.7G   0% /dev
+run             7.7G  2.1M  7.7G   1% /run
+efivarfs        268K  224K   40K  85% /sys/firmware/efi/efivars
+/dev/nvme0n1p6   98G   90G  3.0G  97% /
+tmpfs           7.7G   55M  7.7G   1% /dev/shm
+tmpfs           1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs           7.7G   12M  7.7G   1% /tmp
+/dev/nvme0n1p5  799M  229M  570M  29% /boot
+tmpfs           1.6G  344K  1.6G   1% /run/user/1000
+3 Most CPU-hogging processes:
+    PID COMMAND         %CPU
+   2520 firefox          7.5
+   2787 Isolated Web Co  4.9
+  94371 code             3.6
+
