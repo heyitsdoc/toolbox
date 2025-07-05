@@ -31,6 +31,10 @@ esac
 #     echo $line
 #   fi
 # done < "/home/doc/doc_mastery/bin/core/proglist.txt"
+scriptName=$(cat $SCRIPT_DIR/core/proglist.txt | grep "${select:2}" | awk '{print $2}' )
+$scriptName $SRC_ARGS 
+
+
 
 case $select in --gi | --all)
   echo -e "here your ip take it:\n$(get_ip)"
@@ -52,29 +56,3 @@ case $select in --du | --all)
   ;;
 esac
 
-case $select in --kp)
-  kill_proc
-  ;;
-esac
-
-case $select in --trim)
-  trim_ssd
-  ;;
-esac
-
-case $select in --ping)
- is_up $SRC_ARGS  
-  ;;
-esac
-case $select in --net)
- netdat.sh $SRC_ARGS  
-  ;;
-esac
-case $select in --pro)
- procdat.sh $SRC_ARGS  
-  ;;
-esac
-case $select in --sys)
-  sysreport.sh $SRC_ARGS  
-  ;;
-esac

@@ -16,7 +16,7 @@ SCRIPT_NAME=$(basename "$SCRIPT_PATH")
 
 
 while true; do 
-  read -p "enter the tag for the $SCRIPT_NAME. eg: --${SCRIPT_NAME:0:3} : " SCRIPT_TAG
+  read -p "enter the tag for the $SCRIPT_NAME. eg: -${SCRIPT_NAME:0:3} : " SCRIPT_TAG
   echo "$SCRIPT_TAG"
   if grep -qw "\\$SCRIPT_TAG" $SCRIPT_DIR/core/proglist.txt; then
     echo "it exists"
@@ -25,7 +25,7 @@ while true; do
     read -p "enter the discription for $SCRIPT_NAME : " SCRIPT_DISC 
     echo "$SCRIPT_TAG $SCRIPT_NAME => $SCRIPT_DISC" >> $SCRIPT_DIR/core/proglist.txt
     echo "$SCRIPT_TAG : $SCRIPT_DISC" >> $SCRIPT_DIR/core/help.txt
-    echo -e "case \$select in $SCRIPT_TAG)\n  $SCRIPT_NAME \$SRC_ARGS  \n  ;;\nesac" >> $SCRIPT_DIR/toolbox
+    # echo -e "case \$select in $SCRIPT_TAG)\n  $SCRIPT_NAME \$SRC_ARGS  \n  ;;\nesac" >> $SCRIPT_DIR/toolbox
     break
   fi
 done

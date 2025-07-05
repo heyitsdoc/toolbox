@@ -3,7 +3,7 @@
 --gi get_ip => get ip of the system.
 --du disk_usage => gives you disk usage.
 --ls list_services => lists services. 
---kp kill_process => used for killing most resourse intensive processes.
+--kp kill_proc => used for killing most resourse intensive processes.
 --ping is_up => pings domains
 --net netdat.sh => gives some basic network information
 --pro procdat.sh => gets top 10 most resourse intensive tasks by CPU or MEM
