@@ -1,0 +1,123 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$(cd $SCRIPT_DIR | cd .. && pwd)/env"
+
+
+
+# Try to auto-detect GitHub repo from current git directory
+if [[ -d .git || $(git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]]; then
+    REMOTE_URL=$(git config --get remote.origin.url)
+    
+    # Extract the user/repo format
+    if [[ "$REMOTE_URL" =~ github.com[:/](.*)\.git ]]; then
+        GITHUB_REPO="${BASH_REMATCH[1]}"
+    fi
+fi
+
+# Try to detect GitHub repo
+if [[ -z "$GITHUB_REPO" ]]; then
+    if [[ -d .git || $(git rev-parse --is-inside-work-tree 2>/dev/null) == "true" ]]; then
+        REMOTE_URL=$(git config --get remote.origin.url)
+        if [[ "$REMOTE_URL" =~ github.com[:/](.*)\.git ]]; then
+            GITHUB_REPO="${BASH_REMATCH[1]}"
+        fi
+    fi
+fi
+
+# Sync to GitHub if both token and repo are available
+# if [[ -n "$GITHUB_TOKEN" && -n "$GITHUB_REPO" ]]; then
+
+
+# pattern parsing for lable and body file
+PRIORITY="normal"
+BODY_FILE=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -p|--priority)
+            PRIORITY="$2"
+            echo "Priority set to: $PRIORITY"
+            shift 2
+        ;;
+        -f|--file)
+            BODY_FILE="$2"
+            echo "Body file set to: $BODY_FILE"
+            shift 2
+        ;;
+        -l|--label)
+            LABEL="$2"
+            echo "Label set to: $LABEL"
+            shift 2
+        ;;
+        -b|--body)
+            BODY="$2"
+            if [ -f "$BODY" ]; then
+                BODY=$(<"$BODY")
+            else
+                echo "Warning: Body file '$BODY' does not exist. Using as plain text."
+            fi
+            echo "Body set to: $BODY"
+            shift 2
+        ;;
+        *)
+            # First non-flag argument is the issue title
+            if [[ -z "$TITLE" ]]; then
+                TITLE="$1"
+                echo "Issue title set to: $TITLE"
+            fi
+            shift
+        ;;
+    esac
+done
+GITHUB_USER=$(echo "$GITHUB_REPO" | cut -d'/' -f1)
+GITHUB_REPO_NAME=$(echo "$GITHUB_REPO" | cut -d'/' -f2) 
+
+
+# BODY=$(<bug_report.md)
+
+# ## push to github issues
+if [[ -n "$TITLE" && -n "$GITHUB_USER" && -n "$GITHUB_REPO_NAME" ]]; then
+    # Use BODY from --body or --file, fallback to empty string
+    ISSUE_BODY="$BODY"
+    if [[ -z "$ISSUE_BODY" && -n "$BODY_FILE" && -f "$BODY_FILE" ]]; then
+        ISSUE_BODY=$(<"$BODY_FILE")
+    fi
+    # Use LABEL if set, otherwise default to "todo"
+    if [[ -n "$LABEL" ]]; then
+        # Support comma-separated labels, convert to JSON array with quoted strings
+        IFS=',' read -ra LABELS_ARRAY <<< "$LABEL"
+        LABELS_JSON=$(printf '"%s",' "${LABELS_ARRAY[@]}")
+        LABELS_JSON="[${LABELS_JSON%,}]"
+        ISSUE_LABELS="$LABELS_JSON"
+    else
+        ISSUE_LABELS='["todo"]'
+    fi
+    
+
+    # Use GITHUB_TOKEN from env if available, fallback to hardcoded token (not recommended)
+    AUTH_TOKEN="$gitApi"
+
+    curl -s -X POST "https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPO_NAME/issues" \
+      -H "Authorization: token $AUTH_TOKEN" \
+      -H "Accept: application/vnd.github+json" \
+      -d "$(jq -n \
+            --arg title "$TITLE" \
+            --arg body "$ISSUE_BODY" \
+            --argjson labels "${ISSUE_LABELS}" \
+            --arg priority "$PRIORITY" \
+            '{title: $title, body: $body, labels: $labels, priority: $priority}')"
+    else
+        echo "Missing required information to create GitHub issue."
+fi
+
+
+# output details
+echo "Issue title: $TITLE"
+echo "Priority: $PRIORITY"
+echo "Labels: $LABELS_JSON"
+echo "GITHUB_REPO: $GITHUB_REPO"
+echo "GitHub user: $GITHUB_USER"
+echo "GitHub repo: $GITHUB_REPO_NAME"
+echo "GitHub body: $BODY"
+

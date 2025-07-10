@@ -8,8 +8,11 @@ commands="$SCRIPT_DIR/commands"
 
 if [ -z "$1" ]; then
   echo "No Script File Provided."
+  check_package firefox
+  
   exit 1
 fi
+
 
 SCRIPT_PATH="$1"
 SCRIPT_NAME=$(basename "$SCRIPT_PATH")
